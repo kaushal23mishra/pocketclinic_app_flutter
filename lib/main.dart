@@ -4,28 +4,45 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'common/routes.dart';
 import 'common/utils/utils.dart';
 
+// SharedPreferences instance to store user data
 SharedPreferences? prefs;
+
+// Variable to track user login status
 var isLoggedIn;
+
 void main() async {
+  // Run the application
   runApp(const MyApp());
+
+  // Initialize SharedPreferences
   prefs = await SharedPreferences.getInstance();
 }
 
+// Main application widget
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Return the GetMaterialApp widget which initializes the application
     return GetMaterialApp(
+      // Application title
       title: "Pocket Clinic",
+
+      // Disable the debug banner in the app
       debugShowCheckedModeBanner: false,
 
+      // Custom scroll behavior defined in MyCustomScrollBehavior
       scrollBehavior: MyCustomScrollBehavior(),
+
+      // Initial route based on user login status
       initialRoute: isLoggedIn == null
           ? AppRoutes.loginRoute
           : isLoggedIn == '1'
-              ? AppRoutes.timelineRoute
-              : AppRoutes.loginRoute,
+          ? AppRoutes.timelineRoute
+          : AppRoutes.loginRoute,
+
+      // List of routes/pages defined in AppRoutes
       getPages: AppRoutes.pages,
     );
   }

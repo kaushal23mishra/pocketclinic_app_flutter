@@ -12,74 +12,99 @@ import '../utils/progress_dialog_utils.dart';
 import 'exceptions.dart';
 
 class ApiClient extends GetConnect {
+  // Function to make a POST request to the API
   static Future<dynamic> callPostApi(String url, Map data,
       {required Function onResponse,
-      bool showLoader = true,
-      bool hideLoader = true}) async {
+        bool showLoader = true,
+        bool hideLoader = true}) async {
+    // Unfocus any focused element
     Get.focusScope!.unfocus();
+
+    // Show progress dialog if requested
     if (showLoader) ProgressDialogUtils.showProgressDialog();
+
     try {
+      // Log request URL and data
       log('request url: $url');
       log('request data: ${json.encode(data)}');
 
+      // Prepare headers with authentication token
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
 
+      // Make POST request
       final http.Response response = await http
           .post(Uri.parse(url), headers: headers, body: json.encode(data))
           .timeout( const Duration(seconds: StringConstant.timeOutDuration));
+
+      // Handle response
       return _returnResponse(response, onResponse, hideLoader);
+
     } on SocketException catch (_) {
+      // Handle no internet connection
       log(_.toString());
       MyCustomWidgets.errorSnackBar(Get.context!, 'No Internet Connection');
 
       ProgressDialogUtils.hideProgressDialog();
       return;
     } on HttpException catch (_) {
+      // Handle HTTP exception
       log(_.toString());
       MyCustomWidgets.errorSnackBar(Get.context!,
           'Error occurred while Communication with Server with StatusCode : ${_.message}');
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
+      // Handle other exceptions
       log(e.toString());
       MyCustomWidgets.errorSnackBar(Get.context!, 'Something went wrong :$e');
       ProgressDialogUtils.hideProgressDialog();
     }
   }
 
+  // Function to make a GET request to the API
   static Future<dynamic> callGetApi(String url,
       {required Function onResponse,
-      bool showLoader = true,
-      bool hideLoader = true}) async {
+        bool showLoader = true,
+        bool hideLoader = true}) async {
+    // Show progress dialog if requested
     if (showLoader) ProgressDialogUtils.showProgressDialog();
     try {
+      // Log request URL
       log('request url: $url');
 
+      // Prepare headers with authentication token
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
+
+      // Make GET request
       final http.Response response = await http
           .get(Uri.parse(url), headers: headers)
           .timeout(const Duration(seconds: StringConstant.timeOutDuration));
 
+      // Handle response
       return _returnResponse(response, onResponse, hideLoader);
+
     } on SocketException catch (_) {
+      // Handle no internet connection
       log(_.toString());
       MyCustomWidgets.errorSnackBar(Get.context!, 'No Internet Connection');
 
       ProgressDialogUtils.hideProgressDialog();
       return;
     } on HttpException catch (_) {
+      // Handle HTTP exception
       log(_.toString());
       MyCustomWidgets.errorSnackBar(Get.context!,
           'Error occurred while Communication with Server with StatusCode : ${_.message}');
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
+      // Handle other exceptions
       log(e.toString());
       MyCustomWidgets.errorSnackBar(Get.context!, 'Something went wrong :$e');
 
@@ -87,102 +112,120 @@ class ApiClient extends GetConnect {
     }
   }
 
+  // Function to make a multipart request to the API
   static Future<dynamic> callMultipartApi(
       String url,
-      // Map<String, String>? data,
       List<http.MultipartFile> files,
       {required Function onResponse,
-      bool showLoader = true,
-      bool hideLoader = true}) async {
+        bool showLoader = true,
+        bool hideLoader = true}) async {
+    // Unfocus any focused element
     Get.focusScope!.unfocus();
+
+    // Show progress dialog if requested
     if (showLoader) ProgressDialogUtils.showProgressDialog();
 
     var request = http.MultipartRequest("PUT", Uri.parse(url));
 
+    // Prepare headers with authentication token
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
     };
 
     log('request url: $url');
-    // log('request data: ${json.encode(data)}');
     log('headers: ${json.encode(headers)}');
 
     request.headers.addAll(headers);
 
     try {
-      // if (data != ""){
-      //   request.fields.addAll(data!);
-      // }
-
+      // Add files to the request
       for (http.MultipartFile file in files) {
         request.files.add(file);
         log('request file: ${file.filename}');
       }
     } catch (e) {
+      // Handle error adding request
       log("Error adding request : $e");
       ProgressDialogUtils.hideProgressDialog();
     }
 
     try {
+      // Send multipart request
       var response = await request.send();
       return _returnMultiPartResponse(response, onResponse, hideLoader);
+
     } on SocketException catch (_) {
+      // Handle no internet connection
       log(_.toString());
       MyCustomWidgets.errorSnackBar(Get.context!, 'No Internet Connection');
 
       ProgressDialogUtils.hideProgressDialog();
       return;
     } on HttpException catch (_) {
+      // Handle HTTP exception
       log(_.toString());
       MyCustomWidgets.errorSnackBar(Get.context!,
           'Error occurred while Communication with Server with StatusCode : ${_.message}');
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
+      // Handle other exceptions
       log(e.toString());
       MyCustomWidgets.errorSnackBar(Get.context!, 'Something went wrong :$e');
       ProgressDialogUtils.hideProgressDialog();
     }
   }
 
+  // Function to make a PUT request to the API
   static Future<dynamic> callPutApi(String url, Map data,
       {required Function onResponse,
-      bool showLoader = true,
-      bool hideLoader = true}) async {
+        bool showLoader = true,
+        bool hideLoader = true}) async {
+    // Unfocus any focused element
     Get.focusScope!.unfocus();
+
+    // Show progress dialog if requested
     if (showLoader) ProgressDialogUtils.showProgressDialog();
     try {
+      // Log request URL and data
       log('request url: $url');
       log('request data: ${json.encode(data)}');
 
+      // Prepare headers with authentication token
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
 
+      // Make PUT request
       final http.Response response = await http
           .put(Uri.parse(url), headers: headers, body: json.encode(data))
           .timeout(const Duration(seconds: StringConstant.timeOutDuration));
       return _returnResponse(response, onResponse, hideLoader);
+
     } on SocketException catch (_) {
+      // Handle no internet connection
       log(_.toString());
       MyCustomWidgets.errorSnackBar(Get.context!, 'No Internet Connection');
 
       ProgressDialogUtils.hideProgressDialog();
       return;
     } on HttpException catch (_) {
+      // Handle HTTP exception
       log(_.toString());
       MyCustomWidgets.errorSnackBar(Get.context!,
           'Error occurred while Communication with Server with StatusCode : ${_.message}');
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
+      // Handle other exceptions
       log(e.toString());
       MyCustomWidgets.errorSnackBar(Get.context!, 'Something went wrong :$e');
       ProgressDialogUtils.hideProgressDialog();
     }
   }
 
+  // Function to handle response for multipart requests
   static _returnMultiPartResponse(http.StreamedResponse response,
       Function onResponse, bool hideLoader) async {
     log('response code:${response.statusCode}');
@@ -236,6 +279,7 @@ class ApiClient extends GetConnect {
     }
   }
 
+  // Function to handle response for regular requests
   static _returnResponse(
       http.Response response, Function onResponse, bool hideLoader) async {
     log('response code:${response.statusCode}');

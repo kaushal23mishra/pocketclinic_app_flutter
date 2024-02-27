@@ -9,27 +9,36 @@ import 'package:http/http.dart' as http;
 import '../widget/snack_bar_widget.dart';
 
 class VisitControllers extends GetxController {
+// Observables for visit data and task counts
   final visitData = VisitModel().obs;
   final validatedTasksForUserData = <Data>[].obs;
   final pendingCount = 0.obs;
   final completeCount = 0.obs;
 
-  // final noteController = TextEditingController();
+// Form key for form validation
   final formKey = GlobalKey<FormState>();
 
+// List to hold non-null user data values and task ids
   final nonNullUserDataValue = <Map<String, dynamic>>[].obs;
   List<String> taskIds = [];
+
+// Function to call the visit API
   Future<dynamic> callVisitApi() async {
+    // Construct the URL for the visit endpoint
     String url = ApiEndPoints.visitEndPoint;
 
+    // Call the API using ApiClient
     await ApiClient.callGetApi(
       url,
       onResponse: (http.Response response) async {
+        // Parse the response body JSON into a VisitModel object
         visitData.value = VisitModel.fromJson(jsonDecode(response.body));
         validatedTasksForUserData.value = visitData.value.data!;
+
         // Clear previous non-null user data value
         nonNullUserDataValue.clear();
 
+        // Iterate over the validated tasks for user data
         for (var data in validatedTasksForUserData.value) {
           if (data.validatedTasksForUser != null && data.validatedTasksForUser!.isNotEmpty) {
             for (var task in data.validatedTasksForUser!) {
@@ -50,6 +59,7 @@ class VisitControllers extends GetxController {
     );
   }
 
+
   // Iterate over each data and add only the first object of validatedTasksForUser
   // for (var data in validatedTasksForUserData.value) {
   //   if (data.validatedTasksForUser != null && data.validatedTasksForUser!.isNotEmpty) {
@@ -69,22 +79,25 @@ class VisitControllers extends GetxController {
     required String note,
     // required String mobile,
   }) async {
+    // Construct the URL for the update visit endpoint
     String url = ApiEndPoints.updateVisitEndPoint;
-    Map<String, String> data = {
-    "taskId": visitId,
-    "visitId": taskId,
-    "note": note
 
+    // Prepare data to be sent in the request body
+    Map<String, String> data = {
+      "taskId": visitId,
+      "visitId": taskId,
+      "note": note
     };
+
+    // Call the API using ApiClient
     await ApiClient.callPostApi(
       url,
       data,
       onResponse: (http.Response response) async {
-
-
-        // noteControllers.clear();
+        // Display success message as a snackbar
         MyCustomWidgets.successSnackBar(Get.context!, 'Successfully updated');
       },
     );
   }
+
 }
