@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'common/routes.dart';
-import 'common/utils/utils.dart';
+import 'common/utils/responsive_utils.dart';
+import 'common/utils/routes_utils.dart';
 
 // SharedPreferences instance to store user data
 SharedPreferences? prefs;
 
 // Variable to track user login status
-var isLoggedIn;
+late final String? isLoggedIn;
 
 void main() async {
   // Run the application
@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
       initialRoute: isLoggedIn == null
           ? AppRoutes.loginRoute
           : isLoggedIn == '1'
-          ? AppRoutes.timelineRoute
-          : AppRoutes.loginRoute,
+              ? AppRoutes.timelineRoute
+              : AppRoutes.loginRoute,
 
       // List of routes/pages defined in AppRoutes
       getPages: AppRoutes.pages,

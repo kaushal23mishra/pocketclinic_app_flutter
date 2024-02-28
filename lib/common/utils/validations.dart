@@ -19,7 +19,8 @@ dynamic emailValidation({required String email}) {
 ///
 /// Returns true if the password meets the required structure, otherwise returns an error message.
 bool validateStructure(String value) {
-  String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  String pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
   RegExp regExp = RegExp(pattern);
   return regExp.hasMatch(value);
 }

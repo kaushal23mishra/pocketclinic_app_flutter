@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+// I haven't added a try-catch block here because I've already handled each aspect in the API services class.
 // Controller for the main drawer
 class MainDrawerController extends GetxController {
   // Observable to control drawer visibility

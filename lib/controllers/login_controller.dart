@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pocketclinic/common/string_constant.dart';
+import 'package:pocketclinic/common/common_string.dart';
 import '../common/api_services/api_client.dart';
 import '../common/api_services/api_end_points.dart';
-import '../common/routes.dart';
+import '../common/utils/routes_utils.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
 import '../models/login_model.dart';
 
+// I haven't added a try-catch block here because I've already handled each aspect in the API services class.
 class LoginScreenControllers extends GetxController {
   // Text Editing Controllers
   final usernameController = TextEditingController(text: 'abdul@gmail.com');
@@ -45,13 +46,15 @@ class LoginScreenControllers extends GetxController {
         await prefs!.clear();
 
         // Store the access token in SharedPreferences
-        await prefs!.setString(StringConstant.token, loginData.value.accessToken!);
+        await prefs!
+            .setString(StringConstant.token, loginData.value.accessToken!);
 
         // Set login status to true in SharedPreferences
         await prefs!.setString(StringConstant.isLoggedIn, "1");
 
         // Clear username from text field
         usernameController.clear();
+        passwordController.clear();
 
         // Navigate to timeline screen
         Get.offAllNamed(AppRoutes.timelineRoute);

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 import '../widget/snack_bar_widget.dart';
 
+// I haven't added a try-catch block here because I've already handled each aspect in the API services class.
 class VisitControllers extends GetxController {
 // Observables for visit data and task counts
   final visitData = VisitModel().obs;
@@ -39,8 +40,9 @@ class VisitControllers extends GetxController {
         nonNullUserDataValue.clear();
 
         // Iterate over the validated tasks for user data
-        for (var data in validatedTasksForUserData.value) {
-          if (data.validatedTasksForUser != null && data.validatedTasksForUser!.isNotEmpty) {
+        for (var data in validatedTasksForUserData) {
+          if (data.validatedTasksForUser != null &&
+              data.validatedTasksForUser!.isNotEmpty) {
             for (var task in data.validatedTasksForUser!) {
               // Create a new map with the _id and task details
               Map<String, dynamic> taskWithId = {
@@ -58,7 +60,6 @@ class VisitControllers extends GetxController {
       },
     );
   }
-
 
   // Iterate over each data and add only the first object of validatedTasksForUser
   // for (var data in validatedTasksForUserData.value) {
@@ -99,5 +100,4 @@ class VisitControllers extends GetxController {
       },
     );
   }
-
 }

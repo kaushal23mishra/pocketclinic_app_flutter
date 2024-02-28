@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pocketclinic/common/common_color.dart';
+import 'package:pocketclinic/common/common_drawer.dart';
+import 'package:pocketclinic/common/utils/responsive_utils.dart';
+import 'package:pocketclinic/pages/condition/conditions.dart';
 import 'package:pocketclinic/pages/timeline/timeline_sub_screen.dart';
 
-import '../../common/color_constant.dart';
-import '../../common/image_constant.dart';
-import '../../common/drawer_constant.dart';
-import '../../common/responsive.dart';
+import '../../common/common_app_bar.dart';
 import '../../controllers/drawer_controller.dart';
-import '../../widget/image_widget.dart';
-import '../condition/conditions.dart';
 
 class TimelinePage extends StatefulWidget {
   const TimelinePage({Key? key}) : super(key: key);
@@ -22,122 +21,40 @@ class _TimelinePageState extends State<TimelinePage> {
     const TimelineSubScreen(),
     const ConditionScreen(),
   ];
-  final mainDrawerController = Get.put(MainDrawerController());
+
+  // Create an instance of the private controller to manage sub drawer state
+  late final MainDrawerController _mainDrawerController;
+
+  @override
+  void initState() {
+    // Initialize the controller when the screen initializes
+    _mainDrawerController = Get.put(MainDrawerController());
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controller when the screen is disposed
+    _mainDrawerController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double fem = MediaQuery.of(context).size.width /
-        (Responsive.isMobile(context) ? 700 : 1512);
+    //fem is used for relative size
+    double fem = SizeUtils.calculateSize1(context);
     return Scaffold(
         bottomNavigationBar: Responsive.isMobile(context) == true
             ? SizedBox(height: 95 * fem, child: PersistenceBottomBar())
             : const SizedBox(),
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leadingWidth: 250 * fem,
-          leading: Image.asset(
-            'assets/images/logo.png',
-            scale: 4,
-          ),
-          iconTheme: const IconThemeData(color: ColorConstant.sonicsilveracc),
-          backgroundColor: ColorConstant.whiteColor,
-          elevation: 3,
-          actions: [
-            const Spacer(),
-            CustomImageView(
-              svgPath: ImageConstant.notificationBell,
-              // width: 60 *fem,
-              color: ColorConstant.primary,
-            ),
-            SizedBox(
-              width: 30 * fem,
-            ),
-
-            // GestureDetector(
-            //   onTap: () {
-            //     mainScreenControllers.currentIndex.value = 5;
-            //   },
-            //   child: Row(
-            //     children: [
-            //       Container(
-            //           decoration: BoxDecoration(
-            //               shape: BoxShape.circle,
-            //               border: Border.all(
-            //                   width: 0.5.w,
-            //                   color: ColorConstants.primary)),
-            //           child: CircleAvatar(
-            //             radius: 20.r,
-            //             backgroundImage:
-            //                 const AssetImage(ImageConstants.profile),
-            //           )),
-            //     ],
-            //   ),
-            // ),
-            PopupMenuButton(
-                padding: const EdgeInsets.all(5),
-                offset: const Offset(0, 50),
-                constraints: const BoxConstraints(
-                  minWidth: 100.0,
-                  maxWidth: 150.0,
-                ),
-                icon: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 0.5, color: ColorConstant.primary)),
-                    child: const CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage('assets/images/profile.png'),
-                    )),
-                itemBuilder: (context) => [
-                      PopupMenuItem(
-                        value: "Profile",
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/timeline.png',
-                              scale: 2,
-                            ),
-                            SizedBox(
-                              width: 7 * fem,
-                            ),
-                            const Text("My Profile"),
-                          ],
-                        ),
-                      ),
-                      PopupMenuItem(
-                        value: "Logout",
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/timeline.png',
-                              scale: 2,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text("Logout"),
-                          ],
-                        ),
-                      ),
-                    ],
-                onSelected: (value) {
-                  // if (value == "Profile") {
-                  //   mainScreenControllers.currentIndex.value = 5;
-                  // } else {
-                  //   Get.offAllNamed(RouteConstant.loginScreen);
-                  // }
-                }),
-            SizedBox(
-              width: Get.width / 19,
-            ),
-          ],
-        ),
-        backgroundColor: const Color(0xffffffff),
+        appBar: const MyCustomAppBar(),
+        backgroundColor: CommonColor.whiteColor,
         body: Padding(
           padding: EdgeInsets.only(
             left: 0 * fem,
             // top: 7 * fem,
-            right:Responsive.isMobile(context)==true?  25 * fem:50*fem,
+            right: Responsive.isMobile(context) == true ? 25 * fem : 50 * fem,
           ),
           child: SingleChildScrollView(
             child: Row(
@@ -159,7 +76,7 @@ class _TimelinePageState extends State<TimelinePage> {
                     child: Obx(
                   () => AnimatedSwitcher(
                     duration: const Duration(milliseconds: 500),
-                    child: screens[mainDrawerController.currentIndex.value],
+                    child: screens[_mainDrawerController.currentIndex.value],
                   ),
                 ))
               ],

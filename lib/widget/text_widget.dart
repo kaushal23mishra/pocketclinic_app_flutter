@@ -1,24 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
-import '../common/font_constent.dart';
-
+import '../common/common_fonts.dart';
+import '../common/utils/responsive_utils.dart';
 
 class DisplayText extends StatelessWidget {
   final String? text;
   final double? fontSize;
   final FontWeight? fontWeight;
-  final Color? textColor;
+  final Color? color;
   final TextOverflow? overflow;
-  final TextAlign? textAlign;
-  final TextDecoration? textDecoration;
+  final TextAlign? align;
+  final TextDecoration? decoration;
   final String? fontFamily;
   final Color? decorationColor;
   final int? maxLines;
   final double? height;
   final double? letterSpacing;
-  final TextStyle? textStyle;
   final Color? backgroundColor;
   final FontStyle? fontStyle;
   final double? wordSpacing;
@@ -36,16 +34,15 @@ class DisplayText extends StatelessWidget {
     this.text,
     this.fontSize,
     this.fontWeight,
-    this.textColor,
+    this.color,
     this.overflow,
-    this.textAlign,
-    this.textDecoration,
+    this.align,
+    this.decoration,
     this.decorationColor,
     this.fontFamily,
     this.maxLines,
     this.height,
     this.letterSpacing,
-    this.textStyle,
     this.backgroundColor,
     this.fontStyle,
     this.wordSpacing,
@@ -61,15 +58,15 @@ class DisplayText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 1512;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
+    //fem is used for relative size
+    double fem = SizeUtils.calculateSize1(context);
     double ffem = fem * 0.97;
 
     try {
       return Text(
         text ?? "",
         overflow: overflow,
-        textAlign: textAlign,
+        textAlign: align,
         maxLines: maxLines,
         // textDirection:TextDecoration.lineThrough,
         // locale:
@@ -83,12 +80,12 @@ class DisplayText extends StatelessWidget {
         // selectionColor:
 
         style: TextStyle(
-          decoration: textDecoration,
+          decoration: decoration,
           decorationColor: decorationColor,
           height: height ?? 1.5 * ffem / fem,
           letterSpacing: letterSpacing ?? 0.2 * fem,
           fontWeight: fontWeight ?? FontWeight.w600,
-          color: textColor,
+          color: color,
           fontSize: fontSize ?? 14.0 * fem,
           fontFamily: fontFamily ?? AllFontFamilies.poppins,
           backgroundColor: backgroundColor,
@@ -114,4 +111,52 @@ class DisplayText extends StatelessWidget {
       );
     }
   }
+}
+
+TextStyle commonTextStyle({
+  required BuildContext context,
+  TextDecoration? decoration,
+  Color? decorationColor,
+  double? height,
+  double? letterSpacing,
+  FontWeight? fontWeight,
+  Color? color,
+  double? fontSize,
+  String? fontFamily,
+  Color? backgroundColor,
+  FontStyle? fontStyle,
+  double? wordSpacing,
+  TextBaseline? textBaseline,
+  Locale? locale,
+  Paint? foreground,
+  Paint? background,
+  List<Shadow>? shadows,
+  List<FontFeature>? fontFeatures,
+  TextDecorationStyle? decorationStyle,
+  double? decorationThickness,
+}) {
+  //fem is used for relative size
+  double fem = SizeUtils.calculateSize1(context);
+  double ffem = fem * 0.97;
+  return TextStyle(
+    decoration: decoration,
+    decorationColor: decorationColor,
+    height: 1.5 * ffem / fem,
+    letterSpacing: letterSpacing ?? 0.2,
+    fontWeight: fontWeight ?? FontWeight.w600,
+    color: color,
+    fontSize: fontSize ?? 14.0 * fem,
+    fontFamily: fontFamily ?? AllFontFamilies.poppins,
+    backgroundColor: backgroundColor,
+    fontStyle: fontStyle,
+    wordSpacing: wordSpacing,
+    textBaseline: textBaseline,
+    locale: locale,
+    foreground: foreground,
+    background: background,
+    shadows: shadows,
+    fontFeatures: fontFeatures,
+    decorationStyle: decorationStyle,
+    decorationThickness: decorationThickness,
+  );
 }

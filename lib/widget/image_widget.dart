@@ -6,6 +6,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../common/common_color.dart';
+
 class CustomImageView extends StatelessWidget {
   ///[url] is required parameter for fetching network image
   String? url;
@@ -32,7 +34,8 @@ class CustomImageView extends StatelessWidget {
 
   ///a [CustomImageView] it can be used for showing any type of images
   /// it will shows the placeholder image if image is not found on network image
-  CustomImageView({super.key,
+  CustomImageView({
+    super.key,
     this.url,
     this.imagePath,
     this.svgPath,
@@ -102,7 +105,6 @@ class CustomImageView extends StatelessWidget {
         height: height,
         width: width,
         child: SvgPicture.asset(
-
           svgPath!,
           height: height,
           width: width,
@@ -125,12 +127,12 @@ class CustomImageView extends StatelessWidget {
         fit: fit,
         imageUrl: url!,
         color: color,
-        placeholder: (context, url) => SizedBox(
+        placeholder: (context, url) => const SizedBox(
           height: 30,
           width: 30,
           child: LinearProgressIndicator(
-            color: Colors.grey.shade200,
-            backgroundColor: Colors.grey.shade100,
+            color: CommonColor.grey600,
+            backgroundColor: CommonColor.green300,
           ),
         ),
         errorWidget: (context, url, error) => Image.asset(

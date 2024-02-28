@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../common/card_constant.dart';
-import '../../common/heading_constant.dart';
-import '../../common/responsive.dart';
+import '../../common/common_card.dart';
+import '../../common/common_container.dart';
+import '../../common/common_heading.dart';
+import '../../common/utils/responsive_utils.dart';
 import '../../common/timeline_detail/other_card.dart';
 import '../../common/timeline_detail/timeline_detail.dart';
-import '../../common/your_task_container.dart';
 import '../../controllers/drawer_controller.dart';
 import '../../controllers/visit_controller.dart';
 
@@ -44,8 +43,8 @@ class _TimelineSubScreenState extends State<TimelineSubScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double fem = MediaQuery.of(context).size.width /
-        (Responsive.isMobile(context) ? 700 : 1512);
+    //fem is used for relative size
+    double fem = SizeUtils.calculateSize1(context);
     return Padding(
       padding: EdgeInsets.only(top: 20 * fem, left: 30 * fem),
       child: Column(

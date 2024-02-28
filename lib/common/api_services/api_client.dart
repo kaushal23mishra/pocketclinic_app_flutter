@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:pocketclinic/main.dart';
 import '../../widget/snack_bar_widget.dart';
-import '../routes.dart';
-import '../string_constant.dart';
+import '../utils/routes_utils.dart';
+import '../common_string.dart';
 import '../utils/progress_dialog_utils.dart';
 import 'exceptions.dart';
 
@@ -15,8 +15,8 @@ class ApiClient extends GetConnect {
   // Function to make a POST request to the API
   static Future<dynamic> callPostApi(String url, Map data,
       {required Function onResponse,
-        bool showLoader = true,
-        bool hideLoader = true}) async {
+      bool showLoader = true,
+      bool hideLoader = true}) async {
     // Unfocus any focused element
     Get.focusScope!.unfocus();
 
@@ -31,18 +31,18 @@ class ApiClient extends GetConnect {
       // Prepare headers with authentication token
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
+        'Authorization':
+            'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
 
       // Make POST request
       final http.Response response = await http
           .post(Uri.parse(url), headers: headers, body: json.encode(data))
-          .timeout( const Duration(seconds: StringConstant.timeOutDuration));
+          .timeout(const Duration(seconds: StringConstant.timeOutDuration));
 
       // Handle response
       return _returnResponse(response, onResponse, hideLoader);
-
     } on SocketException catch (_) {
       // Handle no internet connection
       log(_.toString());
@@ -67,8 +67,8 @@ class ApiClient extends GetConnect {
   // Function to make a GET request to the API
   static Future<dynamic> callGetApi(String url,
       {required Function onResponse,
-        bool showLoader = true,
-        bool hideLoader = true}) async {
+      bool showLoader = true,
+      bool hideLoader = true}) async {
     // Show progress dialog if requested
     if (showLoader) ProgressDialogUtils.showProgressDialog();
     try {
@@ -78,7 +78,8 @@ class ApiClient extends GetConnect {
       // Prepare headers with authentication token
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
+        'Authorization':
+            'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
 
@@ -89,7 +90,6 @@ class ApiClient extends GetConnect {
 
       // Handle response
       return _returnResponse(response, onResponse, hideLoader);
-
     } on SocketException catch (_) {
       // Handle no internet connection
       log(_.toString());
@@ -114,11 +114,10 @@ class ApiClient extends GetConnect {
 
   // Function to make a multipart request to the API
   static Future<dynamic> callMultipartApi(
-      String url,
-      List<http.MultipartFile> files,
+      String url, List<http.MultipartFile> files,
       {required Function onResponse,
-        bool showLoader = true,
-        bool hideLoader = true}) async {
+      bool showLoader = true,
+      bool hideLoader = true}) async {
     // Unfocus any focused element
     Get.focusScope!.unfocus();
 
@@ -154,7 +153,6 @@ class ApiClient extends GetConnect {
       // Send multipart request
       var response = await request.send();
       return _returnMultiPartResponse(response, onResponse, hideLoader);
-
     } on SocketException catch (_) {
       // Handle no internet connection
       log(_.toString());
@@ -179,8 +177,8 @@ class ApiClient extends GetConnect {
   // Function to make a PUT request to the API
   static Future<dynamic> callPutApi(String url, Map data,
       {required Function onResponse,
-        bool showLoader = true,
-        bool hideLoader = true}) async {
+      bool showLoader = true,
+      bool hideLoader = true}) async {
     // Unfocus any focused element
     Get.focusScope!.unfocus();
 
@@ -194,7 +192,8 @@ class ApiClient extends GetConnect {
       // Prepare headers with authentication token
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
+        'Authorization':
+            'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
 
@@ -203,7 +202,6 @@ class ApiClient extends GetConnect {
           .put(Uri.parse(url), headers: headers, body: json.encode(data))
           .timeout(const Duration(seconds: StringConstant.timeOutDuration));
       return _returnResponse(response, onResponse, hideLoader);
-
     } on SocketException catch (_) {
       // Handle no internet connection
       log(_.toString());

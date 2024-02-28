@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/condition_model.dart';
 
+// I haven't added a try-catch block here because I've already handled each aspect in the API services class.
 class ConditionControllers extends GetxController {
   // Observable to hold condition data
   final conditionData = ConditionModel().obs;
@@ -23,7 +24,8 @@ class ConditionControllers extends GetxController {
       url,
       onResponse: (http.Response response) async {
         // Parse the response body into a ConditionModel object
-        conditionData.value = ConditionModel.fromJson(jsonDecode(response.body));
+        conditionData.value =
+            ConditionModel.fromJson(jsonDecode(response.body));
 
         // Extract the data field from the ConditionModel and assign it to conditionFinalData
         conditionFinalData.value = conditionData.value.data!;
