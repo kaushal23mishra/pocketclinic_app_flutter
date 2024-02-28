@@ -14,7 +14,7 @@ class StringConstant {
   static final List<String> customNavigationDrawerIconLabel = [
     'Timeline',
     'Categories',
-  ];
+  ];//
   static final List<String> subNavigationDrawerIconsList = [
     CommonImage.conditionIcon,
     CommonImage.labsIcon,
