@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocketclinic/common/common_string.dart';
 import 'package:pocketclinic/common/utils/responsive_utils.dart';
 import 'package:pocketclinic/widget/text_widget.dart';
 import '../../common/common_color.dart';
@@ -47,7 +48,7 @@ class _LoginWebPageState extends State<LoginWebPage> {
                             ),
                             children: [
                               TextSpan(
-                                text: 'Welcome \n',
+                                text: CommonString.welcome,
                                 style: commonTextStyle(
                                   fontSize: 40 * fem,
                                   fontWeight: FontWeight.w700,
@@ -57,7 +58,7 @@ class _LoginWebPageState extends State<LoginWebPage> {
                                 ),
                               ),
                               TextSpan(
-                                text: 'Help us create your health report ',
+                                text: CommonString.helpUsText,
                                 style: commonTextStyle(
                                   fontSize: 32 * fem,
                                   fontWeight: FontWeight.w500,

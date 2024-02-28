@@ -32,14 +32,14 @@ class ApiClient extends GetConnect {
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
         'Authorization':
-            'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
+            'Bearer ${prefs!.getString(CommonString.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
 
       // Make POST request
       final http.Response response = await http
           .post(Uri.parse(url), headers: headers, body: json.encode(data))
-          .timeout(const Duration(seconds: StringConstant.timeOutDuration));
+          .timeout(const Duration(seconds: CommonString.timeOutDuration));
 
       // Handle response
       return _returnResponse(response, onResponse, hideLoader);
@@ -79,14 +79,14 @@ class ApiClient extends GetConnect {
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
         'Authorization':
-            'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
+            'Bearer ${prefs!.getString(CommonString.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
 
       // Make GET request
       final http.Response response = await http
           .get(Uri.parse(url), headers: headers)
-          .timeout(const Duration(seconds: StringConstant.timeOutDuration));
+          .timeout(const Duration(seconds: CommonString.timeOutDuration));
 
       // Handle response
       return _returnResponse(response, onResponse, hideLoader);
@@ -129,7 +129,7 @@ class ApiClient extends GetConnect {
     // Prepare headers with authentication token
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
+      'Authorization': 'Bearer ${prefs!.getString(CommonString.token) ?? ""}'
     };
 
     log('request url: $url');
@@ -193,14 +193,14 @@ class ApiClient extends GetConnect {
       Map<String, String> headers = <String, String>{
         'Content-Type': 'application/json',
         'Authorization':
-            'Bearer ${prefs!.getString(StringConstant.token) ?? ""}'
+            'Bearer ${prefs!.getString(CommonString.token) ?? ""}'
       };
       log('headers: ${json.encode(headers)}');
 
       // Make PUT request
       final http.Response response = await http
           .put(Uri.parse(url), headers: headers, body: json.encode(data))
-          .timeout(const Duration(seconds: StringConstant.timeOutDuration));
+          .timeout(const Duration(seconds: CommonString.timeOutDuration));
       return _returnResponse(response, onResponse, hideLoader);
     } on SocketException catch (_) {
       // Handle no internet connection
@@ -250,7 +250,7 @@ class ApiClient extends GetConnect {
       case 403:
         ProgressDialogUtils.hideProgressDialog();
         MyCustomWidgets.errorSnackBar(Get.context!, responseJson['message']);
-        prefs!.setString(StringConstant.isLoggedIn, '0');
+        prefs!.setString(CommonString.isLoggedIn, '0');
         Get.offNamedUntil(AppRoutes.loginRoute, (route) => false);
         throw UnauthorisedException(responseJson.toString());
 
@@ -304,7 +304,7 @@ class ApiClient extends GetConnect {
       case 403:
         ProgressDialogUtils.hideProgressDialog();
         MyCustomWidgets.errorSnackBar(Get.context!, responseJson['message']);
-        prefs!.setString(StringConstant.isLoggedIn, '0');
+        prefs!.setString(CommonString.isLoggedIn, '0');
         Get.offNamedUntil(AppRoutes.loginRoute, (route) => false);
         throw UnauthorisedException(response.body.toString());
 

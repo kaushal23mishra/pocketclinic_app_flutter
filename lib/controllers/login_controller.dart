@@ -26,7 +26,7 @@ class LoginScreenControllers extends GetxController {
     required String password,
   }) async {
     // Clear token from SharedPreferences
-    prefs!.setString(StringConstant.token, "");
+    prefs!.setString(CommonString.token, "");
 
     // Construct the URL for the login endpoint
     String url = ApiEndPoints.loginEndPoint;
@@ -47,10 +47,10 @@ class LoginScreenControllers extends GetxController {
 
         // Store the access token in SharedPreferences
         await prefs!
-            .setString(StringConstant.token, loginData.value.accessToken!);
+            .setString(CommonString.token, loginData.value.accessToken!);
 
         // Set login status to true in SharedPreferences
-        await prefs!.setString(StringConstant.isLoggedIn, "1");
+        await prefs!.setString(CommonString.isLoggedIn, "1");
 
         // Clear username from text field
         usernameController.clear();

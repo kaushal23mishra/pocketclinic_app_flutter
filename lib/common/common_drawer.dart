@@ -31,7 +31,7 @@ class CustomNavigationDrawer extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: StringConstant.customNavigationDrawerIconsList.length,
+              itemCount: CommonString.customNavigationDrawerIconsList.length,
               itemBuilder: (context, index) {
                 return Obx(
                   () => AnimatedContainer(
@@ -45,7 +45,7 @@ class CustomNavigationDrawer extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Image.asset(
-                              StringConstant
+                              CommonString
                                   .customNavigationDrawerIconsList[index],
                               width: 40 * fem,
                               height: 40 * fem,
@@ -60,7 +60,7 @@ class CustomNavigationDrawer extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(bottom: 5, left: 8),
                                   child: DisplayText(
-                                    text: StringConstant
+                                    text: CommonString
                                         .customNavigationDrawerIconLabel[index],
                                     color: mainScreenController
                                                 .currentIndex.value ==
@@ -116,7 +116,7 @@ class _CustomSubNavigationDrawerState extends State<CustomSubNavigationDrawer> {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.fromLTRB(0, 10 * fem, 0 * fem, 0),
-              itemCount: StringConstant.subNavigationDrawerIconsList.length,
+              itemCount: CommonString.subNavigationDrawerIconsList.length,
               itemBuilder: (context, index) {
                 return Column(
                   children: [
@@ -150,7 +150,7 @@ class _CustomSubNavigationDrawerState extends State<CustomSubNavigationDrawer> {
                                   borderRadius: BorderRadius.circular(28 * fem),
                                 ),
                                 child: Image.asset(
-                                  StringConstant
+                                  CommonString
                                       .subNavigationDrawerIconsList[index]
                                       .toString(),
                                   fit: BoxFit.cover,
@@ -161,7 +161,7 @@ class _CustomSubNavigationDrawerState extends State<CustomSubNavigationDrawer> {
                                       padding: const EdgeInsets.only(
                                           left: 10, bottom: 5),
                                       child: DisplayText(
-                                        text: StringConstant
+                                        text: CommonString
                                                 .customSubNavigationDrawerIconLabel[
                                             index],
                                         fontSize: 20 * fem,
@@ -179,7 +179,7 @@ class _CustomSubNavigationDrawerState extends State<CustomSubNavigationDrawer> {
                         )),
                     // Add a Divider if it's not the last item
                     if (index !=
-                        StringConstant.subNavigationDrawerIconsList.length)
+                        CommonString.subNavigationDrawerIconsList.length)
                       const Padding(
                         padding: EdgeInsets.only(left: 14.0, right: 34),
                         child: Divider(
@@ -214,7 +214,7 @@ class _VisitsCategoriesState extends State<VisitsCategories> {
     double fem = SizeUtils.calculateSize1(context);
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: StringConstant.visitsNavigationDrawerIconLabel.length,
+      itemCount: CommonString.visitsNavigationDrawerIconLabel.length,
       itemBuilder: (context, index) {
         return Obx(
           () => AnimatedContainer(
@@ -228,7 +228,7 @@ class _VisitsCategoriesState extends State<VisitsCategories> {
                     horizontal: 12 * fem,
                   ),
                   child: DisplayText(
-                    text: StringConstant.visitsNavigationDrawerIconLabel[index],
+                    text: CommonString.visitsNavigationDrawerIconLabel[index],
                     fontSize: 20 * fem,
                     fontWeight: FontWeight.w400,
                     color: visitCategoryController.currentIndex.value == index
@@ -262,7 +262,7 @@ class _YourTaskCategoriesState extends State<YourTaskCategories> {
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: StringConstant.yourTaskNavigationDrawerIconLabel.length,
+      itemCount: CommonString.yourTaskNavigationDrawerIconLabel.length,
       itemBuilder: (context, index) {
         return Obx(
           () => AnimatedContainer(
@@ -279,7 +279,7 @@ class _YourTaskCategoriesState extends State<YourTaskCategories> {
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 0, 12 * fem, 0),
                       child: DisplayText(
-                        text: StringConstant
+                        text: CommonString
                             .yourTaskNavigationDrawerIconLabel[index],
                         fontSize: 20 * fem,
                         fontWeight: FontWeight.w400,
@@ -338,7 +338,7 @@ class _ConditionCategoriesState extends State<ConditionCategories> {
     double fem = SizeUtils.calculateSize1(context);
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: StringConstant.customSubNavigationDrawerIconLabel.length,
+      itemCount: CommonString.customSubNavigationDrawerIconLabel.length,
       itemBuilder: (context, index) {
         return Obx(() => AnimatedContainer(
               duration: const Duration(milliseconds: 500),
@@ -378,7 +378,7 @@ class _ConditionCategoriesState extends State<ConditionCategories> {
                           borderRadius: BorderRadius.circular(40 * fem),
                         ),
                         child: Image.asset(
-                          StringConstant.subNavigationDrawerIconsList[index]
+                          CommonString.subNavigationDrawerIconsList[index]
                               .toString(),
                           fit: BoxFit.cover,
                         ),
@@ -387,7 +387,7 @@ class _ConditionCategoriesState extends State<ConditionCategories> {
                         height: 15 * fem,
                       ),
                       DisplayText(
-                          text: StringConstant
+                          text: CommonString
                               .customSubNavigationDrawerIconLabel[index],
                           fontSize: 18 * fem,
                           fontWeight: FontWeight.w500,
@@ -431,9 +431,9 @@ class PersistenceBottomBar extends StatelessWidget {
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount:
-                StringConstant.customNavigationDrawerIconsList.length,
+                CommonString.customNavigationDrawerIconsList.length,
           ),
-          itemCount: StringConstant.customNavigationDrawerIconsList.length,
+          itemCount: CommonString.customNavigationDrawerIconsList.length,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return Obx(
@@ -449,7 +449,7 @@ class PersistenceBottomBar extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
-                          StringConstant.customNavigationDrawerIconsList[index],
+                          CommonString.customNavigationDrawerIconsList[index],
                           width: 80 * fem,
                           height: 80 * fem,
                           color:
@@ -464,7 +464,7 @@ class PersistenceBottomBar extends StatelessWidget {
                                     bottom: 5 * fem,
                                     left: 8 * fem),
                                 child: DisplayText(
-                                  text: StringConstant
+                                  text: CommonString
                                       .customNavigationDrawerIconLabel[index],
                                   fontSize: 34 * fem,
                                   color:

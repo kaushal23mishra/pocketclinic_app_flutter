@@ -4,6 +4,7 @@ import 'package:pocketclinic/common/utils/responsive_utils.dart';
 import 'package:pocketclinic/widget/text_widget.dart';
 
 import 'common_color.dart';
+import 'common_string.dart';
 
 class CustomContainer extends StatelessWidget {
   final String imagePath;
@@ -73,7 +74,7 @@ class _CustomButtonState extends State<CustomButton> {
       ),
       child: Center(
         child: DisplayText(
-          text: 'Log In',
+          text: CommonString.logIn,
           fontSize: 24 * fem,
           fontWeight: FontWeight.w700,
           letterSpacing: 0.48 * fem,

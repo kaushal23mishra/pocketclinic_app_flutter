@@ -10,6 +10,7 @@ import 'package:pocketclinic/widget/text_widget.dart';
 
 import '../../common/common_color.dart';
 import '../../common/common_image.dart';
+import '../../common/common_string.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 72 * fem),
             child: DisplayText(
-              text: 'Log In',
+              text: CommonString.logIn,
               fontSize: 32 * fem,
               letterSpacing: 0.64 * fem,
               color: CommonColor.deepGreen,

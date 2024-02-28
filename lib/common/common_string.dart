@@ -1,11 +1,15 @@
 import 'common_image.dart';
 
-class StringConstant {
+class CommonString {
   static const String isLoggedIn = 'isLoggedIn';
   static const String token = 'token';
   static const String email = 'email';
 
   static const int timeOutDuration = 30;
+
+  static const String logIn = 'Log In';
+  static const String helpUsText = 'Help us create your health report ';
+  static const String welcome = 'Welcome \n';
 
   static final List<String> customNavigationDrawerIconsList = [
     CommonImage.timelineFilled,
@@ -14,7 +18,7 @@ class StringConstant {
   static final List<String> customNavigationDrawerIconLabel = [
     'Timeline',
     'Categories',
-  ];//
+  ];
   static final List<String> subNavigationDrawerIconsList = [
     CommonImage.conditionIcon,
     CommonImage.labsIcon,
