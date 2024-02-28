@@ -5,14 +5,14 @@ import 'package:pocketclinic/common/utils/responsive_utils.dart';
 import '../widget/image_widget.dart';
 import 'common_image.dart';
 
-class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? text;
 
   final bool? isNotificationTrue;
   final bool? isProfileTrue;
   final bool? isBackTrue;
 
-  const MyCustomAppBar({
+  const CommonAppBar({
     Key? key,
     this.text,
     this.isBackTrue = true,

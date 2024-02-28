@@ -4,12 +4,6 @@ class StringConstant {
   static const String isLoggedIn = 'isLoggedIn';
   static const String token = 'token';
   static const String email = 'email';
-  static const String fullName = 'fullName';
-  static const String countryCode = 'countryCode';
-  static const String id = 'id';
-  static const String mobile = 'mobile';
-  static const String profileImage = 'profileImage';
-  static const String selectedUserInterests = "Selected User Interests";
 
   static const int timeOutDuration = 30;
 

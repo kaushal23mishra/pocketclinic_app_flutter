@@ -48,7 +48,7 @@ class _TimelinePageState extends State<TimelinePage> {
         bottomNavigationBar: Responsive.isMobile(context) == true
             ? SizedBox(height: 95 * fem, child: PersistenceBottomBar())
             : const SizedBox(),
-        appBar: const MyCustomAppBar(),
+        appBar: const CommonAppBar(),
         backgroundColor: CommonColor.whiteColor,
         body: Padding(
           padding: EdgeInsets.only(
